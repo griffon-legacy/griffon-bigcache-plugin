@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory
 import griffon.core.GriffonApplication
 import griffon.util.Environment
 import griffon.util.CallableWithArgs
+import griffon.util.ConfigUtils
 
 /**
  * @author Andres Almiray
@@ -47,8 +48,7 @@ final class BigcacheConnector implements BigcacheProvider {
     // ======================================================
 
     ConfigObject createConfig(GriffonApplication app) {
-        def bigcacheManagerClass = app.class.classLoader.loadClass('BigcacheConfig')
-        new ConfigSlurper(Environment.current.name).parse(bigcacheManagerClass)
+        ConfigUtils.loadConfigWithI18n('BigcacheConfig')
     }
 
     private ConfigObject narrowConfig(ConfigObject config, String bigcacheManagerName) {
